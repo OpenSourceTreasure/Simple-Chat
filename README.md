@@ -1,10 +1,11 @@
-# simple-chat
-A very simple chat in html and javascript for you to build upon
+Simple Chat
 
-This is code for a basic chat room. It is by no means a finished product. If you are building a chat room, perhaps this will give you a basis and save a bit of time.
+🥁 A very simple chat in html and javascript for you to build upon
 
-There are no dependencies. Just html and javascript.
+💬 This is code for a basic chat room. It is by no means a finished product. If you are building a chat room, perhaps this will give you a basis and save a bit of time.
 
-Demo - https://opensourcetreasure.github.io/simple-chat/
+🎷 There are no dependencies. Just html and javascript.
 
-Enjoy!
+🎸 Demo - https://opensourcetreasure.github.io/simple-chat/
+
+🥂 Enjoy!
