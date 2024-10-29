@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chat</title>
+    <style>
+        body {
+            background-color: black; /* Set body background to black */
+            color: white; /* Set text color to white for visibility */
+            font-family: Arial, sans-serif; /* Optional: Change font for better readability */
+            margin: 0; /* Remove default body margin */
+            padding: 10px; /* Add padding to body for better appearance */
+            box-sizing: border-box; /* Ensure padding doesn't affect width */
+        }
+        #chatbox {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #444; /* Darker border for better contrast */
+            overflow-y: scroll; /* Vertical scrolling */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #222; /* Dark background for chatbox */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+        #input {
+            width: calc(70% - 22px); /* Account for padding and border */
+            padding: 5px; /* Add padding for comfort */
+            background-color: #333; /* Dark background for input field */
+            color: white; /* Set text color to white */
+            border: 1px solid #444; /* Dark border for input */
+            box-sizing: border-box; /* Include padding and border in width */
+        }
+        button {
+            padding: 5px 10px; /* Add padding to button */
+            background-color: #444; /* Dark background for button */
+            color: white; /* Set button text color to white */
+            border: none; /* Remove default border */
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+        button:hover {
+            background-color: #555; /* Slightly lighter on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div id="chatbox"></div>
+<input type="text" id="input" placeholder="Type a message..." onkeydown="checkEnter(event)"/>
+<button onclick="sendMessage()">Send</button>
+
+<script>
+    // Load messages from localStorage when the page is loaded
+    window.onload = function() {
+        var chatbox = document.getElementById("chatbox");
+        var messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+        messages.forEach(function(message) {
+            var msgElement = document.createElement("div");
+            msgElement.textContent = message;
+            chatbox.appendChild(msgElement);
+        });
+        chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom
+    };
+
+    function sendMessage() {
+        var input = document.getElementById("input");
+        var chatbox = document.getElementById("chatbox");
+
+        if (input.value.trim() !== "") {
+            var message = input.value;
+            var msgElement = document.createElement("div");
+            msgElement.textContent = message;
+            chatbox.appendChild(msgElement);
+
+            // Store the message in localStorage
+            storeMessage(message);
+
+            input.value = ""; // Clear input field
+            chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom
+        }
+    }
+
+    function storeMessage(message) {
+        var messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+        messages.push(message);
+        localStorage.setItem("chatMessages", JSON.stringify(messages));
+    }
+
+    function checkEnter(event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    }
+</script>
+
+</body>
+</html>
