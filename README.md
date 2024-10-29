@@ -5,4 +5,6 @@ This is code for a basic chat room. It is by no means a finished product. If you
 
 There are no dependencies. Just html and javascript.
 
+Demo - https://opensourcetreasure.github.io/simple-chat/
+
 Enjoy!
