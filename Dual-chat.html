@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebChat2000</title>
+    <style>
+        /* Global styling */
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: black;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+        }
+        /* Chat Room styling */
+        .chat-room {
+            margin-bottom: 20px;
+        }
+        #messages1, #messages2 {
+            border: 1px solid #ccc;
+            height: 150px;
+            overflow-y: auto;
+            background-color: #222;
+            padding: 5px;
+        }
+        .message-input {
+            display: flex;
+            margin-top: 10px;
+        }
+        .message-input input {
+            flex: 1;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .message-input input:hover {
+            background-color: #444;
+        }
+        .message-input button {
+            padding: 10px 15px;
+            background-color: #0000ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .message-input button:hover {
+            background-color: #0000cc;
+        }
+    </style>
+</head>
+<body>
+    <!-- Chat Room 1 -->
+    <div class="chat-room">
+        <div id="messages1" role="log" aria-live="polite"></div>
+        <div class="message-input">
+            <input id="message1" autocomplete="off" aria-label="Message input for Webchat" />
+            <button type="button" aria-label="Send message" onclick="sendMessage('messages1', 'message1', 'Webchat')">Send</button>
+        </div>
+    </div>
+
+    <!-- Chat Room 2 -->
+    <div class="chat-room">
+        <div id="messages2" role="log" aria-live="polite"></div>
+        <div class="message-input">
+            <input id="message2" autocomplete="off" aria-label="Message input for Webchat II" />
+            <button type="button" aria-label="Send message" onclick="sendMessage('messages2', 'message2', 'Webchat II')">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage(messagesId, inputId, username) {
+            const messageInput = document.getElementById(inputId);
+            if (messageInput.value.trim() === '') return;
+            const message = `${username}: ${messageInput.value}`;
+            messageInput.value = '';
+            displayMessage(messagesId, message);
+            displayMessage(messagesId === 'messages1' ? 'messages2' : 'messages1', message);
+            messageInput.focus();
+            saveMessages();
+        }
+
+        function displayMessage(messagesId, message) {
+            const messagesDiv = document.getElementById(messagesId);
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            messagesDiv.appendChild(messageElement);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function saveMessages() {
+            const messages1 = document.getElementById('messages1').innerHTML;
+            const messages2 = document.getElementById('messages2').innerHTML;
+            localStorage.setItem('messages1', messages1);
+            localStorage.setItem('messages2', messages2);
+        }
+
+        function loadMessages() {
+            const savedMessages1 = localStorage.getItem('messages1');
+            const savedMessages2 = localStorage.getItem('messages2');
+
+            if (savedMessages1) {
+                document.getElementById('messages1').innerHTML = savedMessages1;
+            }
+            if (savedMessages2) {
+                document.getElementById('messages2').innerHTML = savedMessages2;
+            }
+        }
+
+        window.onload = function() {
+            loadMessages();
+        };
+
+        document.getElementById('message1').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage('messages1', 'message1', 'Webchat');
+                event.preventDefault();
+            }
+        });
+
+        document.getElementById('message2').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage('messages2', 'message2', 'Webchat II');
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
