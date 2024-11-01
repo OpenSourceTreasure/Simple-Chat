@@ -8,8 +8,6 @@ Simple Chat
 
 🎷 There are no dependencies. Just html and javascript.
 
-🎸 Demo - https://opensourcetreasure.github.io/simple-chat/
-
 ✅ Bonus! Dual-chat.html is a dual chat on one non-scrolling page. It is two chats in 1 chat room. Users are Webchat and Webchat II. Again, you can use this to build something.
 
 🥂 Enjoy!
